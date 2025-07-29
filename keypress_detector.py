@@ -5,11 +5,12 @@ current_key_press_time = None
 previous_key_press_time = None
 
 # Function to handle key press events
-def get_press_time(chosen_key, event):
-    if event.keysym == chosen_key:
+def get_press_time(key, event):
+    if event.keysym == key:
         press_time = time.time()
         print(f"Key '{chosen_key}' pressed at {press_time}")
-    return press_time
+        return press_time
+    return None
 
 def on_key_press(event):
     global current_key_press_time, previous_key_press_time
