@@ -1,10 +1,8 @@
 import time
 import tkinter as tk
-
 chosen_key = "z"
 current_key_press_time = None
 previous_key_press_time = None
-
 
 def on_key_press(event):
     global current_key_press_time, previous_key_press_time
@@ -15,8 +13,6 @@ def on_key_press(event):
             latency = current_key_press_time - previous_key_press_time
             print(f"Latency since last key press: {latency:.6f} seconds")
         previous_key_press_time = current_key_press_time
-
-        
 
 # Create a simple GUI to test keypress detection
 root = tk.Tk()
