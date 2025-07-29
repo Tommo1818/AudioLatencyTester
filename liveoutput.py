@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from tkinter import ttk
 import threading
+import time
 
 # Parameters
 samplerate = 44100  # Hertz
@@ -14,6 +15,7 @@ peaks = []
 stream = None
 running = False
 selected_device = None
+key_press_times = []
 
 def audio_callback(indata, frames, time, status):
     if status:
