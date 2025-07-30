@@ -9,7 +9,7 @@ press_time = None
 pygame.mixer.init()
 SPIKE_THRESHOLD = 0.5
 
-
+# show the sound devices available
 input_devices = [
     d for d in sd.query_devices()
     if d['max_input_channels'] > 0
