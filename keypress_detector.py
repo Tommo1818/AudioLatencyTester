@@ -1,12 +1,22 @@
 import time
 import tkinter as tk
+import pygame
+
 chosen_key = "z"
 current_key_press_time = None
 previous_key_press_time = None
 
+# Initialize Pygame mixer for audio playback
+pygame.mixer.init()
+# Function to play a sound
+def play_sound():
+    sound = pygame.mixer.Sound("click_sound.wav")
+    sound.play()
+
 # Function to handle key press events
 def get_press_time(key, event):
     if event.keysym == key:
+        play_sound()
         press_time = time.time()
         print(f"Key '{chosen_key}' pressed at {press_time}")
         return press_time
