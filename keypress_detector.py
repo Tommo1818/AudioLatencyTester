@@ -7,8 +7,8 @@ import threading
 
 press_time = None
 pygame.mixer.init()
-SPIKE_THRESHOLD = 0.5
-SELECTED_DEVICE = 0
+SPIKE_THRESHOLD = 0.7 # Adjust this threshold based on your environment
+SELECTED_DEVICE = 4
 listening_for_spikes = False
 list_of_latencies = []
 measurements = 0
@@ -18,6 +18,9 @@ input_devices = [
     d for d in sd.query_devices()
     if d['max_input_channels'] > 0
 ]
+
+for device in input_devices:
+    print(device)
 
 # Function to detect audio spikes
 def audio_callback(indata, frames, time_info, status):
@@ -31,7 +34,14 @@ def audio_callback(indata, frames, time_info, status):
 def start_audio_listener():
     device_info = sd.query_devices(SELECTED_DEVICE, 'input')
     device_index = sd.query_devices().index(device_info)
-    with sd.InputStream(callback=audio_callback, channels=1, samplerate=44100, blocksize=1024, device=device_index):
+    with sd.InputStream(
+            callback=audio_callback,
+            channels=1,
+            samplerate=44100,
+            blocksize=64,
+            device=device_index,
+            latency='low'
+    ):
         threading.Event().wait()
 
 # Start audio listener in a background thread
@@ -69,4 +79,9 @@ root.bind("<KeyPress>", get_press_time)
 root.title("Audio Latency Tester")
 label = tk.Label(root, text="Select this window and press\na key to test audio latency", font=("Arial", 12))
 label.pack(padx=10, pady=50)
+
+imported_device_name = input_devices[SELECTED_DEVICE]['name']
+device_label = tk.Label(root, text=f"Selected Input Device:\n{imported_device_name}", font=("Arial", 10))
+device_label.pack(padx=10, pady=10)
+
 root.mainloop()
