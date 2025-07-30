@@ -31,6 +31,6 @@ def on_key_press(event):
 root = tk.Tk()
 root.bind("<KeyPress>", on_key_press)
 root.title("Audio Latency Tester")
-label = tk.Label(root, text="Press the 'z' key to test keypress detection.")
+label = tk.Label(root, text="Press a key to test audio latency", font=("Arial", 16))
 label.pack(padx=10, pady=10)
 root.mainloop()
